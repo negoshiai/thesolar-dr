@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Solar DR - Your Prescription for a Healthy Energy Future</title>
+    <style>
+        /* CSS Reset and Basic Setup */
+        :root {
+            --color-white: #FFFFFF;
+            --color-midnight-blue: #0A2240;
+            --color-golden-hour: #FFB833;
+            --color-slate-grey: #EAEFF5;
+            --font-headings: 'Poppins', sans-serif;
+            --font-body: 'Lato', sans-serif;
+            --transition-speed: 0.4s;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Lato:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-midnight-blue);
+            color: var(--color-slate-grey);
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: var(--color-midnight-blue);
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: var(--color-golden-hour);
+            border-radius: 20px;
+        }
+
+        /* Cursor Trail Effect */
+        .cursor-dot, .cursor-dot-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-golden-hour);
+        }
+        .cursor-dot-outline {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 184, 51, 0.2);
+            border: 2px solid rgba(255, 184, 51, 0.5);
+        }
+        body:hover .cursor-dot, body:hover .cursor-dot-outline {
+            opacity: 1;
+        }
+
+        /* General Styles */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-headings);
+            color: var(--color-white);
+            font-weight: 700;
+        }
+
+        h1 { font-size: 3.5rem; line-height: 1.1; }
+        h2 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 2rem; }
+        h3 { font-size: 1.8rem; color: var(--color-white); }
+        p { margin-bottom: 1rem; }
+        section { padding: 80px 0; }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--color-golden-hour);
+            color: var(--color-midnight-blue);
+            font-family: var(--font-headings);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 0 15px rgba(255, 184, 51, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 184, 51, 0.7);
+            color: #000;
+        }
+        
+        .section-subtitle {
+            font-family: var(--font-headings);
+            color: var(--color-golden-hour);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .plus-motif {
+            color: var(--color-golden-hour);
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        /* Scroll Animation Setup */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal-left.active, .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            background-color: rgba(10, 34, 64, 0.8);
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-speed) ease;
+        }
+        .header.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-headings);
+            font-size: 1.8rem;
+            color: var(--color-white);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .logo span {
+            color: var(--color-golden-hour);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .nav-links li {
+            margin-left: 35px;
+        }
+        .nav-links a {
+            color: var(--color-slate-grey);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+            transition: color var(--transition-speed);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-golden-hour);
+            transition: width var(--transition-speed) ease;
+        }
+        .nav-links a:hover {
+            color: var(--color-white);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .hamburger .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-white);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(10, 34, 64, 0.8), rgba(10, 34, 64, 0.8)), url('https://images.unsplash.com/photo-1549742691-523114a8726e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            position: relative;
+        }
+        .hero-content {
+            text-align: left;
+            max-width: 700px;
+        }
+        .hero h1 {
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: var(--color-slate-grey);
+        }
+
+        /* 3D Plus Motif */
+        .plus-3d-container {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            perspective: 1000px;
+            width: 200px;
+            height: 200px;
+        }
+        .plus-3d {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate-plus 20s infinite linear;
+        }
+        .plus-3d div {
+            position: absolute;
+            width: 200px;
+            height: 40px;
+            top: 80px;
+            left: 0;
+            background-color: rgba(255, 184, 51, 0.2);
+            border: 1px solid var(--color-golden-hour);
+        }
+        .plus-3d .bar-h {
+            transform: rotateY(90deg) translateZ(100px);
+        }
+        .plus-3d .bar-v {
+            width: 40px;
+            height: 200px;
+            top: 0;
+            left: 80px;
+            transform: rotateX(90deg) translateZ(100px);
+        }
+        @keyframes rotate-plus {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            background-color: var(--color-slate-grey);
+            padding: 30px 0;
+        }
+        .trust-bar .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--color-midnight-blue);
+            font-weight: 600;
+        }
+        .trust-item svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--color-midnight-blue);
+        }
+
+        /* Symptoms (Diagnosis) Section */
+        #symptoms { background-color: var(--color-midnight-blue); text-align: center; }
+        .symptoms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 4rem;
+        }
+        .symptom-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 184, 51, 0.2);
+            transition: all var(--transition-speed) ease;
+        }
+        .symptom-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-golden-hour);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .symptom-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--color-golden-hour);
+        }
+
+        /* Services (Treatments) Section */
+        #services { background-color: var(--color-slate-grey); }
+        #services h2, #services h3 { color: var(--color-midnight-blue); }
+        #services p { color: #555; }
+        #services .section-subtitle { color: var(--color-golden-hour); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 4rem;
+        }
+        .service-card {
+            background-color: var(--color-white);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all var(--transition-speed) ease;
+        }
+        .service-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(10, 34, 64, 0.1);
+        }
+        .service-card svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            stroke: var(--color-golden-hour);
+            transition: all var(--transition-speed) ease;
+        }
+        .service-card:hover svg {
+            stroke: var(--color-midnight-blue);
+        }
+        .service-card h3 { margin-bottom: 1rem; }
+
+        /* Process Section */
+        #process { text-align: center; }
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            position: relative;
+        }
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(to right, var(--color-golden-hour) 50%, rgba(255, 184, 51, 0.3) 50%);
+            background-size: 200% 100%;
+            z-index: -1;
+        }
+        .process-step {
+            width: 30%;
+            position: relative;
+        }
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--color-golden-hour);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            font-family: var(--font-headings);
+            color: var(--color-golden-hour);
+            background-color: var(--color-midnight-blue);
+            transition: all var(--transition-speed) ease;
+        }
+        .process-step:hover .step-number {
+            background-color: var(--color-golden-hour);
+            color: var(--color-midnight-blue);
+            transform: scale(1.1);
+        }
+        
+        /* AI Savings Calculator */
+        #calculator {
+            background-color: var(--color-slate-grey);
+        }
+        .calculator-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            background-color: var(--color-white);
+            padding: 50px;
+            border-radius: 10px;
+        }
+        .calculator-content h2, .calculator-content h3 { color: var(--color-midnight-blue); }
+        .calculator-content p { color: #555; }
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .calculator-form label {
+            font-family: var(--font-headings);
+            color: var(--color-midnight-blue);
+            font-weight: 600;
+        }
+        .calculator-form input {
+            padding: 15px;
+            border: 2px solid var(--color-slate-grey);
+            border-radius: 5px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        .calculator-form input:focus {
+            outline: none;
+            border-color: var(--color-golden-hour);
+        }
+        .calculator-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: var(--color-slate-grey);
+            text-align: center;
+            display: none;
+        }
+        .calculator-result p {
+            margin: 0;
+            color: var(--color-midnight-blue);
+        }
+        .calculator-result .savings-amount {
+            font-size: 2.5rem;
+            font-family: var(--font-headings);
+            color: var(--color-midnight-blue);
+            font-weight: 700;
+        }
+        
+        /* Testimonials Section */
+        #testimonials {
+            text-align: center;
+            background: linear-gradient(rgba(10, 34, 64, 0.9), rgba(10, 34, 64, 0.9)), url('https://images.unsplash.com/photo-1620353123985-a38b1f631165?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80') no-repeat center center/cover;
+            background-attachment: fixed;
+        }
+        .testimonial-card {
+            max-width: 800px;
+            margin: 4rem auto 0;
+            background-color: rgba(0,0,0,0.3);
+            padding: 40px;
+            border-radius: 10px;
+            border-left: 5px solid var(--color-golden-hour);
+        }
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        .testimonial-author {
+            font-weight: bold;
+            font-family: var(--font-headings);
+            color: var(--color-golden-hour);
+        }
+        .quote-icon {
+            font-size: 4rem;
+            color: var(--color-golden-hour);
+            opacity: 0.2;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        /* Contact Section */
+        #contact { background-color: var(--color-slate-grey); }
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .contact-info h2, .contact-info h3 { color: var(--color-midnight-blue); }
+        .contact-info p { color: #555; }
+        .contact-info ul { list-style: none; margin-top: 2rem; }
+        .contact-info li { display: flex; align-items: center; gap: 15px; margin-bottom: 1rem; color: #333;}
+        .contact-info li svg { width: 24px; height: 24px; stroke: var(--color-golden-hour); }
+        .contact-form {
+            background-color: var(--color-white);
+            padding: 40px;
+            border-radius: 10px;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; color: var(--color-midnight-blue); font-weight: 600; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: var(--color-slate-grey);
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--color-golden-hour);
+        }
+        .contact-form .btn { width: 100%; text-align: center; }
+
+        /* Footer */
+        .footer {
+            background-color: #051428;
+            padding: 50px 0;
+            text-align: center;
+            color: #aaa;
+        }
+        .footer .logo { margin-bottom: 1.5rem; display: inline-block; }
+        .footer-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 1.5rem;
+        }
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+        .footer-links a:hover { color: var(--color-golden-hour); }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 1.5rem;
+        }
+        .social-icons a {
+            color: #aaa;
+            font-size: 1.5rem;
+            transition: color var(--transition-speed);
+        }
+        .social-icons a svg {
+            width: 24px;
+            height: 24px;
+            fill: #aaa;
+            transition: fill var(--transition-speed);
+        }
+        .social-icons a:hover svg {
+            fill: var(--color-golden-hour);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .plus-3d-container { display: none; }
+            .hero-content { text-align: center; max-width: 100%; }
+            .hero h1 { font-size: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            section { padding: 60px 0; }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--color-midnight-blue);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.5s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            }
+            .nav-links.active { right: 0; }
+            .nav-links li { margin: 20px 0; }
+            .nav-links a { font-size: 1.2rem; }
+            .hamburger { display: flex; }
+            
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            .process-steps { flex-direction: column; gap: 40px; }
+            .process-steps::before { display: none; }
+            .process-step { width: 100%; }
+
+            .calculator-wrapper { grid-template-columns: 1fr; }
+            .contact-wrapper { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-dot-outline"></div>
+
+    <header class="header">
+        <nav class="container navbar">
+            <a href="#home" class="logo">The Solar DR<span class="plus-motif">+</span></a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Our Treatments</a></li>
+                <li><a href="#process">Our Method</a></li>
+                <li><a href="#testimonials">Success Stories</a></li>
+                <li><a href="#contact">Schedule Consultation</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container hero-content">
+                <span class="section-subtitle reveal">Your Prescription for Energy Independence</span>
+                <h1 class="reveal" style="transition-delay: 0.1s;">The Solar DR: A Healthy Energy Future.</h1>
+                <p class="reveal" style="transition-delay: 0.2s;">Expert diagnosis, installation, and repair for residential & commercial solar systems. We don't just install panels; we ensure the long-term health of your entire energy system.</p>
+                <a href="#contact" class="btn reveal" style="transition-delay: 0.3s;">Schedule Your Free Energy Consultation</a>
+            </div>
+            <div class="plus-3d-container">
+                <div class="plus-3d">
+                    <div class="bar-h"></div>
+                    <div class="bar-v"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="trust-bar">
+            <div class="container">
+                <div class="trust-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 9l4 1.5V15h2V12h10v3h2v-4.5L23 9z"/><path d="M12 4.44L18.67 8H5.33zM7 16h10v5H7z"/></svg>
+                    <span>NABCEP Certified</span>
+                </div>
+                <div class="trust-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6v-5h12v5zm0-7H6V5h12v7z"/></svg>
+                    <span>Tesla Powerwall Certified</span>
+                </div>
+                <div class="trust-item">
+                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27l5.18 3.73-1.4-6.04L21 10.15h-6.31L12 4.27 9.31 10.15H3l5.22 4.81-1.4 6.04z"/></svg>
+                    <span>5-Star Google Rating</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="symptoms">
+            <div class="container">
+                <div class="reveal">
+                    <span class="section-subtitle">The Diagnosis</span>
+                    <h2>Are You Experiencing These Symptoms?</h2>
+                    <p>Your home's energy health is vital. If you're noticing any of these issues, it's time for a professional consultation.</p>
+                </div>
+                <div class="symptoms-grid">
+                    <div class="symptom-card reveal" style="transition-delay: 0.1s;">
+                        <div class="icon">⚡️</div>
+                        <h3>High Electric Bills</h3>
+                        <p>Are your utility bills skyrocketing? We can prescribe a solution to drastically reduce or eliminate them.</p>
+                    </div>
+                    <div class="symptom-card reveal" style="transition-delay: 0.2s;">
+                        <div class="icon">🔌</div>
+                        <h3>Unreliable Power</h3>
+                        <p>Tired of power outages? Our battery storage solutions provide seamless backup power and energy independence.</p>
+                    </div>
+                    <div class="symptom-card reveal" style="transition-delay: 0.3s;">
+                        <div class="icon">📉</div>
+                        <h3>Old, Inefficient System</h3>
+                        <p>Is your existing solar system underperforming? Our specialists can diagnose and fix any issue, restoring it to peak health.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <div class="reveal">
+                    <span class="section-subtitle">Our Treatments</span>
+                    <h2>A Full Spectrum of Solar Care</h2>
+                    <p>From initial installation to long-term maintenance, we provide comprehensive services to keep your system healthy and efficient.</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card reveal-left">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1.5-1.5m1.5 1.5l1.5-1.5m3.75-3l-1.5-1.5m1.5 1.5l1.5-1.5m-3.75-3.75h.008v.008h-.008v-.008zm0 0h-.008v.008h.008v-.008zm-3.75 0h.008v.008h-.008v-.008zm0 0h-.008v.008h.008v-.008z"/></svg>
+                        <h3>Solar Panel Installation</h3>
+                        <p>We design and install custom, high-efficiency solar solutions tailored to your specific energy needs and goals.</p>
+                    </div>
+                    <div class="service-card reveal" style="transition-delay: 0.1s;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z"/></svg>
+                        <h3>Repair & Diagnostics</h3>
+                        <p>Our experts use advanced tools to diagnose any issue, from panel damage to inverter failure, and provide effective repairs.</p>
+                    </div>
+                    <div class="service-card reveal" style="transition-delay: 0.2s;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.667 0l3.181-3.183m-4.991-2.691L7.985 5.989m12.023 0L17.985 9.35m-4.991-2.69L7.985 5.99m0 0h4.992m-4.992 0l3.182 3.182a8.25 8.25 0 0011.667 0l3.181-3.181"/></svg>
+                        <h3>Routine Maintenance</h3>
+                        <p>Ensure your system's longevity and peak performance with our professional cleaning and preventative care plans.</p>
+                    </div>
+                    <div class="service-card reveal-right" style="transition-delay: 0.3s;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12V3H3v9h18zm-1 2H4v6h16v-6zM6 16h2v2H6zm4 0h2v2h-2z"/></svg>
+                        <h3>Battery Storage Solutions</h3>
+                        <p>Gain true energy independence and protect your home from outages with state-of-the-art battery backup systems.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="process">
+            <div class="container">
+                <div class="reveal">
+                    <span class="section-subtitle">The DR's Method</span>
+                    <h2>Your Path to Peak Energy Health</h2>
+                    <p>Our process is designed to be clear, professional, and focused on delivering the perfect prescription for your needs.</p>
+                </div>
+                <div class="process-steps">
+                    <div class="process-step reveal-left">
+                        <div class="step-number">1</div>
+                        <h3>Consultation & Diagnosis</h3>
+                        <p>We begin with a thorough assessment of your energy usage, property, and goals to accurately diagnose your needs.</p>
+                    </div>
+                    <div class="process-step reveal" style="transition-delay: 0.2s;">
+                        <div class="step-number">2</div>
+                        <h3>Prescription & Treatment</h3>
+                        <p>We design a custom solar solution—your "prescription"—and our certified team performs a flawless installation.</p>
+                    </div>
+                    <div class="process-step reveal-right" style="transition-delay: 0.4s;">
+                        <div class="step-number">3</div>
+                        <h3>Ongoing Care</h3>
+                        <p>We don't just disappear. We offer comprehensive monitoring and maintenance to ensure your system's long-term health.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="calculator">
+            <div class="container">
+                <div class="calculator-wrapper reveal">
+                    <div class="calculator-content">
+                        <span class="section-subtitle">AI-Powered Diagnosis</span>
+                        <h2>Estimate Your Energy Savings</h2>
+                        <p>Curious about your potential savings? Enter your average monthly electric bill to get a preliminary diagnosis of what you could save each year with a healthy solar system.</p>
+                    </div>
+                    <div class="calculator-form">
+                        <label for="monthly-bill">Average Monthly Electric Bill ($)</label>
+                        <input type="number" id="monthly-bill" placeholder="e.g., 250">
+                        <button class="btn" id="calculate-btn">Calculate My Savings</button>
+                        <div class="calculator-result" id="result-box">
+                            <p>Your Estimated Yearly Savings:</p>
+                            <p class="savings-amount" id="savings-amount">$0</p>
+                            <p style="font-size:0.8rem; margin-top:10px;">*This is a preliminary estimate. A full consultation will provide an accurate prescription.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="testimonials">
+            <div class="container">
+                <div class="reveal">
+                    <span class="section-subtitle">Patient Success Stories</span>
+                    <h2>What Our Clients Say</h2>
+                </div>
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text">"The Solar DR team was incredible. They diagnosed an issue that two other companies missed and had our system running better than ever. Their professionalism is unmatched. It truly felt like we had an expert doctor for our home's energy."</p>
+                    <p class="testimonial-author">- The Miller Residence</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <div class="contact-info reveal-left">
+                        <span class="section-subtitle">Get In Touch</span>
+                        <h2>Schedule Your Consultation</h2>
+                        <p>Ready for a healthier energy future? Fill out the form to schedule your free, no-obligation energy consultation. Our specialists are ready to diagnose your needs and prescribe the perfect solar solution.</p>
+                        <ul>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg><span>(555) 123-4567</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg><span>consult@thesolardr.com</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg><span>Serving the Greater Metro Area</span></li>
+                        </ul>
+                    </div>
+                    <form class="contact-form reveal-right" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">How can we help you today?</label>
+                            <select id="service" name="service">
+                                <option>New Solar Installation</option>
+                                <option>System Repair & Diagnosis</option>
+                                <option>Routine Maintenance</option>
+                                <option>Battery Storage Inquiry</option>
+                                <option>General Consultation</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Briefly describe your symptoms</label>
+                            <textarea id="message" name="message" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Request My Consultation</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <a href="#home" class="logo">The Solar DR<span class="plus-motif">+</span></a>
+            <ul class="footer-links">
+                 <li><a href="#home">Home</a></li>
+                <li><a href="#services">Treatments</a></li>
+                <li><a href="#process">Method</a></li>
+                <li><a href="#testimonials">Success Stories</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="social-icons">
+                <a href="#"><svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96s4.46 9.96 9.96 9.96c5.5 0 9.96-4.46 9.96-9.96S17.5 2.04 12 2.04zm3.6 7.94h-1.62c-.4 0-.7.3-.7.7v1.1h2.32l-.3 2.3h-2.02v6.04h-2.4v-6.04H9.38v-2.3h1.62v-1.1c0-1.25.95-2.2 2.2-2.2h1.4v2.3z"></path></svg></a>
+                <a href="#"><svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96s4.46 9.96 9.96 9.96c5.5 0 9.96-4.46 9.96-9.96S17.5 2.04 12 2.04zm4.8 7.6c.02.13.02.26.02.39 0 4-3.04 8.6-8.6 8.6-1.7 0-3.3-.5-4.6-1.36.24.03.48.04.72.04 1.4 0 2.7-.48 3.7-1.28-1.3 0-2.4- D.9-2.8-2.08.18.03.36.05.55.05.27 0 .53-.04.78-.1-1.36-.27-2.38-1.48-2.38-2.9v-.04c.4.22.86.35 1.34.37- D.8-.54-1.33-1.45-1.33-2.5 0-.55.15-1.07.4-1.5 1.46 1.8 3.63 2.96 6.1 3.1-.05-.22-.08-.44-.08-.68 0-1.64 1.34-2.98 2.98-2.98.86 0 1.63.36 2.17.95.68-.13 1.32-.38 1.9-.72-.22.7-.7 1.3-1.33 1.66.6-.07 1.17-.23 1.7-.46-.4.6-.9 1.1-1.5 1.5z"></path></svg></a>
+                <a href="#"><svg viewBox="0 0 24 24"><path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96s4.46 9.96 9.96 9.96c5.5 0 9.96-4.46 9.96-9.96S17.5 2.04 12 2.04zm4.9 5.85c.34 0 .6.27.6.6v2.9c0 .34-.27.6-.6.6h-2.9c-.34 0-.6-.27-.6-.6V8.5c0-.34.27-.6.6-.6h2.9zM12 9.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5zm6.5 6.9c0 .8-.64 1.45-1.44 1.45H6.94c-.8 0-1.44-.65-1.44-1.45v-6.9c0-.8.64-1.45 1.44-1.45h10.12c.8 0 1.44.65 1.44 1.45v6.9z"></path></svg></a>
+            </div>
+            <p class="copyright">&copy; <span id="year"></span> The Solar DR. All Rights Reserved. Your Prescription for a Healthy Energy Future.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Header Scroll Effect
+            const header = document.querySelector('.header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Hamburger Menu
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // Cursor Trail Effect
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-dot-outline');
+            window.addEventListener('mousemove', (e) => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+            
+            document.querySelectorAll('a, button, .symptom-card, .service-card').forEach(el => {
+                el.addEventListener('mouseover', () => {
+                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursorOutline.style.borderColor = 'var(--color-golden-hour)';
+                });
+                el.addEventListener('mouseout', () => {
+                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorOutline.style.borderColor = 'rgba(255, 184, 51, 0.5)';
+                });
+            });
+
+            // Reveal on Scroll Animation
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.15
+            });
+
+            revealElements.forEach(el => {
+                revealObserver.observe(el);
+            });
+            
+            // AI Savings Calculator Logic
+            const calculateBtn = document.getElementById('calculate-btn');
+            const monthlyBillInput = document.getElementById('monthly-bill');
+            const resultBox = document.getElementById('result-box');
+            const savingsAmount = document.getElementById('savings-amount');
+
+            calculateBtn.addEventListener('click', () => {
+                const monthlyBill = parseFloat(monthlyBillInput.value);
+                if (isNaN(monthlyBill) || monthlyBill <= 0) {
+                    alert('Please enter a valid monthly bill amount.');
+                    return;
+                }
+
+                // Simple estimation logic: assumes an 85% reduction in bill.
+                const yearlySavings = monthlyBill * 12 * 0.85;
+
+                savingsAmount.textContent = `$${yearlySavings.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+                resultBox.style.display = 'block';
+            });
+            
+            // Set current year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
